@@ -3,6 +3,15 @@ import Task from "../models/TaskModel.js";
 // CREATE TASK
 
 export const createTask = async (req, res) => {
+  const { title, description } = req.body;
+
+  // Validate title and description are not empty
+  if (!title) {
+    return res.status(400).json({ msg: "Title cannot be empty." });
+  }
+  if (!description) {
+    return res.status(400).json({ msg: "Description cannot be empty." });
+  }
   req.body.createdBy = req.user.userId;
   const task = await Task.create(req.body);
   res.status(201).json({ msg: "Task created successfully!", task });

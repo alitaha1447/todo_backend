@@ -15,7 +15,7 @@ export const authenticateUser = async (req, res, next) => {
     } else {
       req.user = await User.findOne({ token: token });
 
-      const userId = req.user._id.toString();
+      const userId = req.user.id.toString();
 
       req.user = { userId };
     }
